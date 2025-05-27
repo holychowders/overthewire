@@ -6,7 +6,7 @@ Notes from playing the OverTheWire wargames
 
 ---
 
-*Created 2025-02-05*
+*Created 2025-02-23*
 
 <https://overthewire.org/>  
 <https://overthewire.org/wargames/bandit/>
