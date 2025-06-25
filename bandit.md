@@ -320,9 +320,31 @@ echo $(find) > /tmp/XXX/b23out.txt
 - SSH in as usual
 - `netcat -N localhost 30002 < <(for i in {0..9999}; do printf "gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8 %.4d\n" $i; done)` -> `iCi86ttT4KSNe1armKiwbQNmB3YJP3q4`
 
-## Level 25 --> 26
+## Level 25 --> 27
 
 - Given: `Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.`
 - Copy `bandit26.sshkey` from `bandit25`'s home directory to our CWD: `ssh bandit25@bandit.labs.overthewire.org -p 2220 "cat bandit26.sshkey" > bandit26.sshkey`
 - Remove group and other users' rwx permissions for ssh key file so we can pass it as an identity file to SSH: `chmod go-rwx bandit26.sshkey`
 - `ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org -p 2220`
+- Since we apparently can't use the shell of `bandit26` for anything useful, we can log back into `bandit25` and `grep bandit26 /etc/passwd`, which gets us `bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext`, which reveals the shell program for `bandit26`: `/usr/bin/showtext`
+- `cat /usr/bin/showtext` -> `...; exec more ~/text.txt; ...;`, revealing that `more` is actually our shell program
+- Knowing that `more` stays open so long as there is input to display that has not yet been displayed, and knowing that `more` gives us some amount of interactivity, we can modify the viewport of our terminal such that `more` isn't able to just display `~/text.txt` and immediately quit, but must hold open.
+- While `more` is held open, we can type `v` to open the file in the default editor, and then resize our viewport for a full view of the editor. We can now use our editor to open `/etc/bandit_pass/bandit26` to obtain the password for `bandit26`, for whatever it's worth (it's not required).
+  - NOTE: We can't just use `more`'s `!command` subshell syntax because the subshell would just be another instance of the currently running shell, `showtext`.
+- For the default editor, `vi`, we can view and modify our shell. `:set shell` will confirm that our current shell is `/usr/bin/showtext`. We can change this via `:set shell=bash`. We can then run `:!exec bash` to break out of our shell and replace it with a `bash` session.
+- `./bandit27-do cat /etc/bandit_pass/bandit27` -> `upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB`
+
+## Level 27 --> 28
+
+- Given: `There is a git repository at ssh://bandit27-git@localhost/home/bandit27-git/repo via the port 2220. The password for the user bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the next level.`
+- `git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo bandit27-git-repo`
+- `cat bandit27-git-repo/README` -> `The password to the next level is: Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN`
+
+## Level 28 --> 29
+
+- Given: `There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo via the port 2220. The password for the user bandit28-git is the same as for the user bandit28. Clone the repository and find the password for the next level.`
+- `git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo bandit28-git-repo`
+- `cat bandit28-git-repo/README.md` contains `password: xxxxxxxxxx` pertaining to `bandit29`
+- `cd bandit28-git-repo; git log --oneline` reveals an entry of `674690a (HEAD -> master, origin/master, origin/HEAD) fix info leak`
+- Assuming that `674690a` hid the password, we can do `git show 674690a` -> `password: 4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7`
+
