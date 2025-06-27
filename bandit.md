@@ -348,3 +348,10 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `cd bandit28-git-repo; git log --oneline` reveals an entry of `674690a (HEAD -> master, origin/master, origin/HEAD) fix info leak`
 - Assuming that `674690a` hid the password, we can do `git show 674690a` -> `password: 4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7`
 
+## Level 29 --> 30
+
+- Given: `There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo via the port 2220. The password for the user bandit29-git is the same as for the user bandit29. Clone the repository and find the password for the next level.`
+- `git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo bandit29-git-repo`
+- `cat bandit29-git-repo/README.md` contains `password: <no passwords in production!>` pertaining to `bandit30`
+- `git branch -a` reveals several branches we could switch to and investigate
+- `git switch dev` and `cat README.md` reveals the password for `bandit30`: `qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL`
