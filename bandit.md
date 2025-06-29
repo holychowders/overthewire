@@ -29,13 +29,45 @@ Playthrough of the Bandit wargame hosted by OverTheWire
   - pwntools (CTF framework and exploit development library): <https://github.com/Gallopsled/pwntools>
   - radare (Reversing toolkit): <https://www.radare.org/n/>
 
-## Level 0
+## Levels
 
-- Open terminal and SSH into game server with username `bandit0`: `ssh bandit0@bandit.labs.overthewire.org -p 2220`
-  - Enter password `bandit0`
+[0-1](#level-0----1)
+[1-2](#level-1----2)
+[2-3](#level-2----3)
+[3-4](#level-3----4)
+[4-5](#level-4----5)
+[5-6](#level-5----6)
+[6-7](#level-6----7)
+[7-8](#level-7----8)
+[8-9](#level-8----9)
+[9-10](#level-9----10)
+[10-11](#level-10----11)
+[11-12](#level-11----12)
+[12-13](#level-12----13)
+[13-14](#level-13----14)
+[14-15](#level-14----15)
+[15-16](#level-15----16)
+[16-17](#level-16----17)
+[17-18](#level-17----18)
+[18-19](#level-18----19)
+[19-20](#level-19----20)
+[20-21](#level-20----21)
+[21-22](#level-21----22)
+[22-23](#level-22----23)
+[23-24](#level-23----24)
+[24-25](#level-24----25)
+[25-27](#level-25----27)
+[27-28](#level-27----28)
+[28-29](#level-28----29)
+[29-30](#level-29----30)
+[30-31](#level-30----31)
+[31-32](#level-31----32)
+[32-33](#level-32----33)
 
 ## Level 0 --> 1
 
+- Open terminal and SSH into game server with username `bandit0`: `ssh bandit0@bandit.labs.overthewire.org -p 2220`
+  - Enter password `bandit0`
 - `cat readme` reveals `bandit1` user password: `ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If`
 
 ## Level 1 --> 2
