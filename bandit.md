@@ -350,8 +350,25 @@ echo $(find) > /tmp/XXX/b23out.txt
 
 ## Level 29 --> 30
 
-- Given: `There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo via the port 2220. The password for the user bandit29-git is the same as for the user bandit29. Clone the repository and find the password for the next level.`
+- Given: *There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo via the port 2220. The password for the user bandit29-git is the same as for the user bandit29. Clone the repository and find the password for the next level.*
 - `git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo bandit29-git-repo`
 - `cat bandit29-git-repo/README.md` contains `password: <no passwords in production!>` pertaining to `bandit30`
 - `git branch -a` reveals several branches we could switch to and investigate
 - `git switch dev` and `cat README.md` reveals the password for `bandit30`: `qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL`
+
+## Level 30 --> 31
+
+- Given: *There is a git repository at ssh://bandit30-git@localhost/home/bandit30-git/repo via the port 2220. The password for the user bandit30-git is the same as for the user bandit30. Clone the repository and find the password for the next level.*
+- `git clone ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo bandit30-git-repo`
+- `cat bandit30-git-repo/README.md` contains `just an epmty file... muahah`... grr
+- `git tag` reveals `secret`
+- `git show secret` reveals something that looks like a password: `fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy`, and indeed it is the password for `bandit31`
+
+## Level 31 --> 32
+
+- Given: *There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo via the port 2220. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.*
+- `git clone ssh://bandit31-git@bandit.labs.overthewire.org:2220/home/bandit31-git/repo bandit31-git-repo`
+- `cat bandit31-git-repo/README.md` tells us we need to do
+- `echo 'May I come in?' > key.txt`
+- `git add key.txt` gets us `The following paths are ignored by one of your .gitignore files: key.txt` and the hint `hint: Use -f if you really want to add them.`, which we'll follow because the `.gitignore` ignores `*.txt`, not specifically `key.txt`, so I want to preserve that.
+- Committing and pushing gets a reply of the password for the next level: `3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K`
