@@ -1,12 +1,14 @@
-# OverTheWire Wargames Playthrough Notes
+# OverTheWire Wargames Playthroughs and Write-Ups
 
-Notes from playing the OverTheWire wargames
+## Wargames
 
-[./bandit.md](./bandit.md)
+[./bandit/](./bandit/)
 
----
-
-*Created 2025-02-23*
+## Resources
 
 <https://overthewire.org/>  
 <https://overthewire.org/wargames/bandit/>
+
+---
+
+*Created 2025-02-23 by [holychowders](https://github.com/holychowders)*
