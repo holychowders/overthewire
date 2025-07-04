@@ -63,6 +63,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 [30-31](#level-30----31)
 [31-32](#level-31----32)
 [32-33](#level-32----33)
+[33-34](#level-33----34)
 
 ## Level 0 --> 1
 
@@ -404,3 +405,15 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `echo 'May I come in?' > key.txt`
 - `git add key.txt` gets us `The following paths are ignored by one of your .gitignore files: key.txt` and the hint `hint: Use -f if you really want to add them.`, which we'll follow because the `.gitignore` ignores `*.txt`, not specifically `key.txt`, so I want to preserve that.
 - Committing and pushing gets a reply of the password for the next level: `3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K`
+
+## Level 32 --> 33
+
+- Given: *After all this git stuff, it’s time for another escape. Good luck!*
+- After a bunch of screwing around (and after logging bandit31 to investigate `/etc/passwd` and `/home/bandit32/uppershell`), we notice a couple of key things about the behavior of the `uppershell` shell:
+  - Trying to execute `some-command` typically produces an error of the form `sh: 1: SOME-COMMAND: Permission denied`, which tells us that `sh` (typically `dash` on this machine) is being used to interpret an uppershell version of our command, passed as argument index `1`, and presumably argument index `0` is the program name, `sh`.
+  - Environment variables (eg, `$SHELL`) are fully expanded and not uppershell before being passed to `sh`
+- Given that we know our commands are being passed as arguments to `sh` for execution, and environment variables are interpreted as-is, we can try the command `$0` in `uppershell` to finally execute `sh` and gain direct access to a `dash` interpreter
+
+## Level 33 --> 34
+ 
+*At this moment, level 34 does not exist yet.*
