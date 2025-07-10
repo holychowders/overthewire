@@ -2,12 +2,14 @@
 
 ## Wargames
 
-[./bandit/](./bandit/)
+[./bandit/](./bandit/)<br>
+[./krypton.md](./krypton.md)<br>
 
 ## Resources
 
-<https://overthewire.org/>  
-<https://overthewire.org/wargames/bandit/>
+<https://overthewire.org/><br>
+<https://overthewire.org/wargames/bandit/><br>
+<https://overthewire.org/wargames/krypton/><br>
 
 ---
 
