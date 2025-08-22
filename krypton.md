@@ -17,7 +17,7 @@ Playthrough of the Krypton wargame hosted by OverTheWire
 ### Solution
 
 - `man base64` to look for a decode flag
-- `echo S1JZUFRPTklTR1JFQVQ= | base64 -d` -> `***REMOVED***`
+- `echo S1JZUFRPTklTR1JFQVQ= | base64 -d` reveals the next level's password
 
 ### Additional
 
@@ -40,7 +40,7 @@ for using the shorthand `ssh <user>@krypton` in place of `ssh <user>@krypton.lab
 - `cd /krypton/krypton1`
 - `less README` reveals that the password for `krypton2` is *"'encrypted' using a simple rotation called ROT13"*
 - `which rot13` reveals that `rot13` is not installed on the machine, which is good. We have to do a little work.
-- `cat krypton2 | tr A-MN-Z N-ZA-M` -> `LEVEL TWO PASSWORD ***REMOVED***`
+- `cat krypton2 | tr A-MN-Z N-ZA-M` reveals the next password
   - `tr A-MN-Z N-ZA-M` maps `A-M` to `N-Z` and `N-Z` to `A-M`, encoding/decoding ROT13
 
 ## Level 2 -> 3
@@ -60,4 +60,4 @@ for using the shorthand `ssh <user>@krypton` in place of `ssh <user>@krypton.lab
 - `echo {a..z} > keyfile.dat` to generate characters a-z and redirect them into `keyfile.dat`
 - `./encrypt keyfile.dat` produces a file `ciphertext` with the contents `MNOPQRSTUVWXYZABCDEFGHIJKL`, which shows us that the keyfile is rotated by 12
 - `cat ciphertext | tr M-ZA-L A-ZM-Z` -> `ABCDEFGHIJKLMNOPQRSTUVWXYZ` verifies correct usage of `tr` for de-rotation by 12
-- `cat krypton3 | tr M-ZA-L A-ZM-Z` -> `***REMOVED***` looks like a successful de-rotation to me
+- `cat krypton3 | tr M-ZA-L A-ZM-Z` reveals the password

@@ -69,7 +69,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 
 - Open terminal and SSH into game server with username `bandit0`: `ssh bandit0@bandit.labs.overthewire.org -p 2220`
   - Enter password `bandit0`
-- `cat readme` reveals `bandit1` user password: `***REMOVED***`
+- `cat readme` reveals `bandit1` user password
 
 ## Level 1 --> 2
 
@@ -81,14 +81,13 @@ Playthrough of the Bandit wargame hosted by OverTheWire
   - I try reading the man page, `man cat`, to no avail
   - I then begin skimming the recommended reading...
     - <https://linux.die.net/abs-guide/special-chars.html>
-  - Solution: I then get the idea to try `cat ./-`, which works
-    - The password for the next level is `***REMOVED***`
+  - Solution: I then get the idea to try `cat ./-`, which works and obtains the password for the next level
 
 ## Level 2 --> 3
 
 - `ssh bandit2@bandit.labs.overthewire.org -p 2220` with password obtained from previous level
 - `ls` reveals a single file named `spaces in this filename`
-- `cat "space in this filename"` -> `***REMOVED***`
+- `cat "space in this filename"` reveals the next password
 
 ## Level 3 --> 4
 
@@ -97,7 +96,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 - `ls` -> `inhere`
 - `ls inhere` -> empty
 - `ls -a inhere` reveals `...Hiding-From-You`
-- `cat inhere/...Hiding-From-You` -> `***REMOVED***`
+- `cat inhere/...Hiding-From-You` reveals the next password
 
 ## Level 4 --> 5
 
@@ -105,7 +104,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 - `ssh bandit4@bandit.labs.overthewire.org -p 2220` with password obtained from previous level
 - `ls -l inhere` reveals several files with identical header information (from `-l`
 - Reading `help for` and testing what the `file` command does, I worked out this loop: `for filename in $(find inhere); do file $filename; done`, which reveals `inhere/-file07: ASCII text` as opposed to everything else which said `data` instead of `ASCII text`.
-  - `cat inhere/-file07` reveals password for next level: `***REMOVED***`
+  - `cat inhere/-file07` reveals password for next level
 
 ### Follow-up
 
@@ -124,7 +123,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
   - This means we have found only a single 1033-byte human-readable file.
   - Checking for execution privileges, I alter the pipe to use `ls -l`: `find inhere -size 1033c -print0 | xargs -0 ls -l`. We verify that there are no execution privileges.
   - We've verified that this is the only file matching the target properties
-  - `find inhere -size 1033c -print0 | xargs -0 cat` reveals the password for the next level: `***REMOVED***`
+  - `find inhere -size 1033c -print0 | xargs -0 cat` reveals the password for the next level
 
 ### Follow-up
 
@@ -142,7 +141,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 - SSH in as in previous procedures
 - `find / -user bandit7 -group bandit6 -size 33c` gets lots of "Permission denied", but finds `/var/lib/dpkg/info/bandit7.password`
   - The "Permission denied" errors can be filtered out trivially by redirecting stdout to /dev/null: `2>/dev/null`, for full command `find / -user bandit7 -group bandit6 -size 33c 2>/dev/null`
-  - `find / -user bandit7 -group bandit6 -size 33c 2>/dev/null | xargs cat` reveals the next level's password: `***REMOVED***`
+  - `find / -user bandit7 -group bandit6 -size 33c 2>/dev/null | xargs cat` reveals the next level's password
 
 ---
 
@@ -150,13 +149,13 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 
 - Given: *The password for the next level is stored in the file data.txt next to the word millionth*
 - SSH in as in previous procedures
-- `cat data.txt | grep "millionth"` discovers the line `millionth       ***REMOVED***`, which contains our password.
+- `cat data.txt | grep "millionth"` discovers the line `millionth       <REDACTED-PASSWORD>`, which contains the next password.
 
 ## Level 8 --> 9
 
 - Given: *The password for the next level is stored in the file data.txt and is the only line of text that occurs only once*
 - SSH in as in previous procedures
-- `cat data.txt | sort | uniq -u` -> `***REMOVED***`
+- `cat data.txt | sort | uniq -u` reveals the next password
   - `uniq` counts the occurrence of repeated adjacent lines, which is why we sort first. `-u` therefore prints out lines that only occur once in the entire file.
 
 ### Follow-Up
@@ -167,20 +166,20 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 
 - Given: *The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.*
 - SSH in as in previous procedures
-- `strings data.txt | grep ==` the output tells us the next level's password is `***REMOVED***`
+- `strings data.txt | grep ==` the output tells us the next level's password
 
 ## Level 10 --> 11
 
 - Given: *The password for the next level is stored in the file data.txt, which contains base64 encoded data*
 - SSH in as in previous procedures
-- `cat data.txt | base64 -d` -> `The password is ***REMOVED***`
+- `cat data.txt | base64 -d` reveals the next password
 
 ## Level 11 --> 12
 
 - Given: *The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions*
   - Help: https://en.wikipedia.org/wiki/ROT13
 - SSH in as in previous procedures
-- `cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'` -> `The password is ***REMOVED***`
+- `cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'` reveals the next password
   - The `'A-Za-z'` array expands to `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
   - The `'N-ZA-Mn-za-m'` array expands to `NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm`
   - A one-to-one mapping occurs from each element in the first array to each element of the second array
@@ -201,7 +200,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
     - `f` specifies input file
   - `bzip2`: `bunzip2 -c file`
     - `-c` writes to standard output and preserves original input file
-- The password for the next level is `***REMOVED***`
+- The password for the next level is revealed
 
 ---
 
@@ -210,20 +209,20 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 - Given: *The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Note: localhost is a hostname that refers to the machine you are working on*
 - SSH in as in previous procedures
 - `ssh -i sshkey.private bandit14@localhost -p 2220`
-- Now, as user `bandit14`, we can retrieve the next leve's password: `cat /etc/bandit_pass/bandit14` -> `***REMOVED***`
+- Now, as user `bandit14`, we can retrieve the next level's password: `cat /etc/bandit_pass/bandit14` reveals the password
 
 ## Level 14 --> 15
 
 - Given: *The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.*
 - SSH in as in previous procedures
 - `nmap localhost`
-- `echo ***REMOVED*** | nc localhost 30000` -> `***REMOVED***`
+- `echo <REDACTED-PREVIOUS-PASSWORD> | nc localhost 30000` produces the next level's password
 
 ## Level 15 --> 16
 
 - Given: *The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL/TLS encryption.*
 - SSH in as in previous procedures
-- `openssl s_client localhost:30001` and paste password -> `***REMOVED***`
+- `openssl s_client localhost:30001` and paste password, reveals next password
 
 ## Level 16 --> 17
 
@@ -237,10 +236,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 - `openssl s_client -connect localhost:31790`
   - Pasting the current level's password receives the `KEYUPDATE` message, while any other output seems to just receive `Wrong! Please enter the correct current password.`
   - Reading the `CONNECTED COMMANDS` section in `man openssl-s_client` (as suggested by the challenge), it mentions the use of `-ign_eof`
-    - Inserting `-ign_eof` works, and we receive an RSA private key (almost certainly the "credentials" for the next level):
-```
-***REMOVED***
-```
+    - Inserting `-ign_eof` works, and we receive an RSA private key (almost certainly the "credentials" for the next level)
   - Strangely, as `bandit15` in the previous level, I didn't have to specify `-connect` or `-ign_eof`. There must be some kind of user configuration or difference in the `openssl` version I'm using?
     - As `bandit16`: `openssl version` -> `OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)`
     - As `bandit15`: `openssl version` -> `OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)`
@@ -255,25 +251,25 @@ Playthrough of the Bandit wargame hosted by OverTheWire
   - Uh oh! The identity file's permissions are too permissive:
     - `chmod go-rwx bandit17_private_key` to remove the `rwx` bits from `group` and `other` users, which should leave the user with the default read/write permissions
       - A better way to do this is `chmod 600 bandit17_private_key`
-  - `diff passwords.old passwords.new` reveals `***REMOVED***`
+  - `diff passwords.old passwords.new` reveals the next password
 
 ## Level 18 --> 19
 
 - Given: *The password for the next level is stored in a file readme in the homedirectory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.*
-- `ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme` -> `***REMOVED***`
+- `ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme` reveals the next password
 
 ## Level 19 --> 20
 
 - Given: *To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.*
 - SSH in in the usual way
-- `./bandit20-do cat /etc/bandit_pass/bandit20` -> `***REMOVED***`
+- `./bandit20-do cat /etc/bandit_pass/bandit20` reveals the next password
 
 ## Level 20 --> 21
 
 - Given: *There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).*
 - SSH as usual
 - In one Tmux pane: `nc -l 30004`. In another Tmux pane: `./suconnect 30004`
-  - Paste the current level's password into netcat's end of the connection -> `***REMOVED***`
+  - Paste the current level's password into netcat's end of the connection to get the next password
 
 ## Level 21 --> 22
 
@@ -289,7 +285,7 @@ Playthrough of the Bandit wargame hosted by OverTheWire
 chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 ```
-  - `cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv` -> `***REMOVED***`
+  - `cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv` reveals the next password
 
 ## Level 22 --> 23
 
@@ -297,7 +293,7 @@ cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 - SSH in as usual
 - `cat /etc/cron.d/cronjob_bandit23`
 - `cat /usr/bin/cronjob_bandit23.sh`
-- Hardcoding `bandit23` in place of `$(whoami)`: `cat /tmp/$(echo I am user bandit23 | md5sum | cut -d ' ' -f 1)` -> `***REMOVED***`
+- Hardcoding `bandit23` in place of `$(whoami)`: `cat /tmp/$(echo I am user bandit23 | md5sum | cut -d ' ' -f 1)` reveals the next password
 
 ## Level 23 --> 24
 
@@ -318,14 +314,14 @@ echo $(find) > /tmp/XXX/b23out.txt
   - NOTE: I wonder if we can use `netcat` or something to see if we can run commands as `bandit24`
   - Let's see if we can find any interesting text from the files we were able to find: `for file in $(cat /tmp/0Zr.txt); do echo ---------------$file; cat /var/spool/bandit24/foo/$file; done`
     - I spot this rather interesting line toward the end of the output: `echo | cat /etc/bandit_pass/bandit24 >> /tmp/pw` coming from `/var/spool/bandit24/foo/102983scfec/myscript.sh`
-    - `cat /var/spool/bandit24/foo/102983scfec/myscript.sh` -> `***REMOVED***`
+    - `cat /var/spool/bandit24/foo/102983scfec/myscript.sh` reveals the next password
 
 ## Level 24 --> 25
 
 - NOTE: Explore different solutions
 - Given: *A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.*
 - SSH in as usual
-- `netcat -N localhost 30002 < <(for i in {0..9999}; do printf "***REMOVED*** %.4d\n" $i; done)` -> `***REMOVED***`
+- `netcat -N localhost 30002 < <(for i in {0..9999}; do printf "<REDACTED-PREVIOUS-PASSWORD> %.4d\n" $i; done)` reveals the next password
 
 ## Level 25 --> 27
 
@@ -339,13 +335,13 @@ echo $(find) > /tmp/XXX/b23out.txt
 - While `more` is held open, we can type `v` to open the file in the default editor, and then resize our viewport for a full view of the editor. We can now use our editor to open `/etc/bandit_pass/bandit26` to obtain the password for `bandit26`, for whatever it's worth (it's not required).
   - NOTE: We can't just use `more`'s `!command` subshell syntax because the subshell would just be another instance of the currently running shell, `showtext`.
 - For the default editor, `vi`, we can view and modify our shell. `:set shell` will confirm that our current shell is `/usr/bin/showtext`. We can change this via `:set shell=bash`. We can then run `:!exec bash` to break out of our shell and replace it with a `bash` session.
-- `./bandit27-do cat /etc/bandit_pass/bandit27` -> `***REMOVED***`
+- `./bandit27-do cat /etc/bandit_pass/bandit27` reveals the next password
 
 ## Level 27 --> 28
 
 - Given: *There is a git repository at ssh://bandit27-git@localhost/home/bandit27-git/repo via the port 2220. The password for the user bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the next level.*
 - `git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo bandit27-git-repo`
-- `cat bandit27-git-repo/README` -> `The password to the next level is: ***REMOVED***`
+- `cat bandit27-git-repo/README` reveals the next password
 
 ## Level 28 --> 29
 
@@ -353,7 +349,7 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo bandit28-git-repo`
 - `cat bandit28-git-repo/README.md` contains `password: xxxxxxxxxx` pertaining to `bandit29`
 - `cd bandit28-git-repo; git log --oneline` reveals an entry of `674690a (HEAD -> master, origin/master, origin/HEAD) fix info leak`
-- Assuming that `674690a` hid the password, we can do `git show 674690a` -> `password: ***REMOVED***`
+- Assuming that `674690a` hid the password, we can do `git show 674690a` reveals the next password
 
 ## Level 29 --> 30
 
@@ -361,7 +357,7 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo bandit29-git-repo`
 - `cat bandit29-git-repo/README.md` contains `password: <no passwords in production!>` pertaining to `bandit30`
 - `git branch -a` reveals several branches we could switch to and investigate
-- `git switch dev` and `cat README.md` reveals the password for `bandit30`: `***REMOVED***`
+- `git switch dev` and `cat README.md` reveals the password for `bandit30`
 
 ## Level 30 --> 31
 
@@ -369,7 +365,7 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `git clone ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo bandit30-git-repo`
 - `cat bandit30-git-repo/README.md` contains `just an epmty file... muahah`... grr
 - `git tag` reveals `secret`
-- `git show secret` reveals something that looks like a password: `***REMOVED***`, and indeed it is the password for `bandit31`
+- `git show secret` reveals something that looks like a password, and indeed it is the password for `bandit31`
 
 ## Level 31 --> 32
 
@@ -378,7 +374,7 @@ echo $(find) > /tmp/XXX/b23out.txt
 - `cat bandit31-git-repo/README.md` tells us we need to do
 - `echo 'May I come in?' > key.txt`
 - `git add key.txt` gets us `The following paths are ignored by one of your .gitignore files: key.txt` and the hint `hint: Use -f if you really want to add them.`, which we'll follow because the `.gitignore` ignores `*.txt`, not specifically `key.txt`, so I want to preserve that.
-- Committing and pushing gets a reply of the password for the next level: `***REMOVED***`
+- Committing and pushing gets a reply of the password for the next level
 
 ## Level 32 --> 33
 
